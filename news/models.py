@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from DjangoUeditor.models import UEditorField
+from django.core.urlresolvers import reverse
 
 @python_2_unicode_compatible
 class Column(models.Model):
@@ -12,6 +13,9 @@ class Column(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def get_absolute_url(self):
+		return reverse('column', args=(self.addr,))
 	
 	class Meta:
 		verbose_name = '栏目'
@@ -35,6 +39,9 @@ class Article(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def get_absolute_url(self):
+		return reverse('article', args=(self.addr,))
 
 	class Meta:
 		verbose_name = '教程'
