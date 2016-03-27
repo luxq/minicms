@@ -2,6 +2,7 @@
 #from __future__ import unicoding_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from DjangoUeditor.models import UEditorField
 
 @python_2_unicode_compatible
 class Column(models.Model):
@@ -26,8 +27,11 @@ class Article(models.Model):
 	addr = models.CharField('网址', max_length=256, db_index=True)
 
 	author = models.ForeignKey('auth.User', blank=True, null=True,verbose_name='作者')
-	content = models.TextField('内容', default='',blank=True)
+	#content = models.TextField('内容', default='',blank=True)
 	published = models.BooleanField('正式发布', default=True)
+	content = UEditorField('内容',height=300,width=1000,
+			default=u'',blank=True,imagePath="uploads/image/",
+			toolbars='besttome',filePath='uploads/files/')
 
 	def __str__(self):
 		return self.title
@@ -35,5 +39,7 @@ class Article(models.Model):
 	class Meta:
 		verbose_name = '教程'
 		verbose_name_plural = '教程'
+
+
 
 # Create your models here.
